@@ -35,7 +35,8 @@ class AuthController extends Controller
             return response([
                 'user' => auth()->user(),
                 'access_token' => auth()->user()->createToken('authToken')->accessToken,
-                'status' => Response::HTTP_OK);
+                'status' => Response::HTTP_OK
+                ]);
         }
 
         return response([
