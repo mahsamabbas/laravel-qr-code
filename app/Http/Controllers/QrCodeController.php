@@ -14,23 +14,23 @@ class QrCodeController extends Controller
      */
     public function index(Request $request)
     {
-//        dd($request->route()->parameter('backgroundcolor'),
-//            $request->route()->parameter('size'),
-//            $request->route()->parameter('content'),
-//            $request->route()->parameter('fillcolor'));
-
-        // alternative method
-        if (($user = Auth::user()) !== null) {
+        $backgroundColor = $request->route()->parameter('backgroundcolor');
+        $fillColor = $request->route()->parameter('fillcolor');
+        if ((Auth::user()) !== null) {
             $image = QrCode::format('png')
                 ->size($request->route()->parameter('size'))
-                //->backgroundColor($request->route()->parameter('backgroundcolor'))
-                ->fillColor($request->route()->parameter('fillcolor'))
-                ->content($request->route()->parameter('content'))
+                ->backgroundColor((int)explode(',', $backgroundColor)[0],
+                    (int)explode(',', $backgroundColor)[1],
+                    (int)explode(',', $backgroundColor)[2],
+                    (int)explode(',', $backgroundColor)[3])
+                ->color((int)explode(',', $fillColor)[0],
+                    (int)explode(',', $fillColor)[1],
+                    (int)explode(',', $fillColor)[2],
+                    (int)explode(',', $fillColor)[3])
                 ->errorCorrection('H')
-                ->generate('RemoteStack');
+                ->generate($request->route()->parameter('content'));
 
             return response($image)->header('Content-type','image/png');
         }
-
     }
 }
