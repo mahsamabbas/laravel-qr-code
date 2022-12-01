@@ -27,7 +27,7 @@ class AuthController extends Controller
                 'user' => auth()->user(),
                 'access_token' => auth()->user()->createToken('authToken')->accessToken,
                 'status' => Response::HTTP_OK
-                ]);
+            ], Response::HTTP_OK);
         }
 
         $user = User::where('email', '=', $request->email)->first();
