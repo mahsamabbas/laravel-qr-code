@@ -29,19 +29,20 @@ class AuthController extends Controller
                 'error' => $userValidation->getMessageBag(),
                 'status' => Response::HTTP_UNAUTHORIZED
             ], Response::HTTP_OK);
+
         }
         if (auth()->attempt($request->all())) {
             return response([
                 'user' => auth()->user(),
                 'access_token' => auth()->user()->createToken('authToken')->accessToken,
-                'status' => Response::HTTP_OK
-            ], Response::HTTP_OK);
+                'status' => Response::HTTP_OK);
         }
 
         return response([
             'message' => 'This User does not exist',
             'status' => Response::HTTP_BAD_REQUEST
         ], Response::HTTP_OK);
+
     }
 
     /**
