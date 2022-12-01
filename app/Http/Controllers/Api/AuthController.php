@@ -8,8 +8,11 @@ use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
+use Laravel\Passport\Passport;
+use League\OAuth2\Server\Grant\ClientCredentialsGrant;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Validator;
 
@@ -89,6 +92,30 @@ class AuthController extends Controller
     public function user(Request $request)
     {
         return response()->json($request->user());
+    }
+
+    /**
+     * Get the authenticated User
+     *
+     * @param Request $request
+     * @return JsonResponse [json] user object
+     */
+    public function client(Request $request)
+    {
+        $client = DB::table('oauth_clients')->first();
+        if ($client) {
+            return response()->json([
+                'client-secret' => $client->secret,
+                'status' => Response::HTTP_OK
+            ], Response::HTTP_OK);
+        } else {
+            return response()->json([
+                'message' =>  'No client registered yet',
+                'status' => Response::HTTP_BAD_REQUEST
+            ], Response::HTTP_OK);
+        }
+
+
     }
 }
 
