@@ -23,12 +23,13 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::post('login', [AuthController::class, 'login']);
 Route::post('register', [AuthController::class, 'register']);
+Route::get('auth/clients', [AuthController::class, 'client']);
 
 Route::group([
     'middleware' => 'auth:api'
 ], function() {
     Route::get('user', [AuthController::class, 'user']);
     Route::get('qr-code/{backgroundcolor}/{size}/{content}/{fillcolor}',
-        [QrCodeController::class, 'index']);
+        [QrCodeController::class, 'qrCode']);
 });
 
