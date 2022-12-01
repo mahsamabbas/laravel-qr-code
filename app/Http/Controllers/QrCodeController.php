@@ -2,35 +2,29 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Services\QrCodeService;
 use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Http\Request;
-use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Illuminate\Support\Facades\Auth;
+use Symfony\Component\HttpFoundation\Response;
 
 class QrCodeController extends Controller
 {
     /**
-     * @return Application
+     * @param Request $request
+     * @param QrCodeService $qrCodeService
+     * @return Application|ResponseFactory|\Illuminate\Http\Response|void
      */
-    public function index(Request $request)
+    public function qrCode(Request $request, QrCodeService $qrCodeService)
     {
-        $backgroundColor = $request->route()->parameter('backgroundcolor');
-        $fillColor = $request->route()->parameter('fillcolor');
         if ((Auth::user()) !== null) {
-            $image = QrCode::format('png')
-                ->size($request->route()->parameter('size'))
-                ->backgroundColor((int)explode(',', $backgroundColor)[0],
-                    (int)explode(',', $backgroundColor)[1],
-                    (int)explode(',', $backgroundColor)[2],
-                    (int)explode(',', $backgroundColor)[3])
-                ->color((int)explode(',', $fillColor)[0],
-                    (int)explode(',', $fillColor)[1],
-                    (int)explode(',', $fillColor)[2],
-                    (int)explode(',', $fillColor)[3])
-                ->errorCorrection('H')
-                ->generate($request->route()->parameter('content'));
+            $qrcodeImage = $qrCodeService->getQrcode($request);
 
-            return response($image)->header('Content-type','image/png');
+            return response([
+                'qr-code' => response(json_encode( utf8_encode( $qrcodeImage ) ), 200)->header('Content-type','image/png')->content(),
+                'status' => Response::HTTP_OK
+            ], Response::HTTP_OK);
         }
     }
 }
