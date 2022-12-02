@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Services\UserValidation;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Http\JsonResponse;
@@ -10,28 +11,22 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\ValidationException;
-use Laravel\Passport\Passport;
-use League\OAuth2\Server\Grant\ClientCredentialsGrant;
 use Symfony\Component\HttpFoundation\Response;
-use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
     /**
      * @param Request $request
+     * @param UserValidation $userValidation
      * @return Application|ResponseFactory|\Illuminate\Http\Response
      */
-    public function login(Request $request)
+    public function login(Request $request, UserValidation $userValidation)
     {
-        $validator = Validator::make($request->all(), [
-            'email' => 'required|email',
-            'password' => ['required', 'string', 'min:8', 'regex:/[a-z]/', 'regex:/[A-Z]/', 'regex:/[0-9]/', 'regex:/[@$!%*#?&]/']
-        ]);
+        $userValidation = $userValidation->validateUserForRegister($request);
 
-        if($validator->fails()){
+        if ($userValidation->fails()){
             return response()->json([
-                'error' => $validator->getMessageBag(),
+                'error' => $userValidation->getMessageBag(),
                 'status' => Response::HTTP_UNAUTHORIZED
             ], Response::HTTP_OK);
         }
@@ -51,21 +46,16 @@ class AuthController extends Controller
 
     /**
      * @param Request $request
+     * @param UserValidation $userValidation
      * @return JsonResponse
-     * @throws ValidationException
      */
-    public function register(Request $request)
+    public function register(Request $request, UserValidation $userValidation)
     {
-        $validator = Validator::make($request->all(), [
-            'name' => 'required|max:255',
-            'email' => 'required|unique:users|email',
-            'password' => ['required', 'string', 'min:8', 'regex:/[a-z]/', 'regex:/[A-Z]/', 'regex:/[0-9]/', 'regex:/[@$!%*#?&]/'],
-            'password_confirm' => 'required|same:password',
-        ]);
+        $userValidation = $userValidation->validateUserForLogin($request);
 
-        if($validator->fails()){
+        if ($userValidation->fails()){
             return response()->json([
-                'error' => $validator->getMessageBag(),
+                'error' => $userValidation->getMessageBag(),
                 'status' => Response::HTTP_UNAUTHORIZED
             ], Response::HTTP_OK);
         }
@@ -103,6 +93,7 @@ class AuthController extends Controller
      public function client(Request $request)
      {
          $client = DB::table('oauth_clients')->first();
+
          if ($client) {
              return response()->json([
                  'client-secret' => $client->secret,

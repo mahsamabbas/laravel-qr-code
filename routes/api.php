@@ -30,6 +30,6 @@ Route::group([
 ], function() {
     Route::get('user', [AuthController::class, 'user']);
     Route::get('qr-code/{backgroundcolor}/{size}/{content}/{fillcolor}',
-        [QrCodeController::class, 'index']);
+        [QrCodeController::class, 'qrCode']);
 });
 
