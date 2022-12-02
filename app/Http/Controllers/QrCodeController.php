@@ -22,7 +22,7 @@ class QrCodeController extends Controller
             $qrcodeImage = $qrCodeService->getQrcode($request);
 
             return response([
-                'qr-code' => response(json_encode( utf8_encode( $qrcodeImage ) ), 200)->header('Content-type','image/png')->content(),
+                'qr-code' => response(json_encode( base64_encode( $qrcodeImage ) ), 200)->header('Content-type','image/png')->content(),
                 'status' => Response::HTTP_OK
             ], Response::HTTP_OK);
         }
