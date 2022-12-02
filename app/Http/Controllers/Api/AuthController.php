@@ -33,7 +33,7 @@ class AuthController extends Controller
             return response()->json([
                 'error' => $validator->getMessageBag(),
                 'status' => Response::HTTP_UNAUTHORIZED
-            ], Response::HTTP_UNAUTHORIZED);
+            ], Response::HTTP_OK);
         }
         if (auth()->attempt($request->all())) {
             return response([
@@ -45,8 +45,8 @@ class AuthController extends Controller
 
         return response([
             'message' => 'This User does not exist',
-            'status' => Response::HTTP_UNAUTHORIZED
-        ], Response::HTTP_UNAUTHORIZED);
+            'status' => Response::HTTP_BAD_REQUEST
+        ], Response::HTTP_OK);
     }
 
     /**
@@ -67,7 +67,7 @@ class AuthController extends Controller
             return response()->json([
                 'error' => $validator->getMessageBag(),
                 'status' => Response::HTTP_UNAUTHORIZED
-            ], Response::HTTP_UNAUTHORIZED);
+            ], Response::HTTP_OK);
         }
         $user = User::create([
             'name' => $request->name,
@@ -114,8 +114,6 @@ class AuthController extends Controller
                 'status' => Response::HTTP_BAD_REQUEST
             ], Response::HTTP_OK);
         }
-
-
     }
 }
 
