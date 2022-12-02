@@ -15,9 +15,10 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-Route::get('/', function () {
+Route::get('/{any}', function () {
     return view('welcome');
-});
+})->where('any', '.*');
+
 
 //Route::get('qr-code/{backgroundcolor}/{size}/{content}/{fillcolor}',
 //    [\App\Http\Controllers\QrCodeController::class, 'index']);
