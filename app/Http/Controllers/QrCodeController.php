@@ -21,8 +21,9 @@ class QrCodeController extends Controller
         if ((Auth::user()) !== null) {
             $qrcodeImage = $qrCodeService->getQrcode($request);
 
+            dd(response(json_encode( base64_encode( $qrcodeImage ) ), 200)->header('Content-type','image/png')->content());
             return response([
-                'qr-code' => response(json_encode( base64_encode( $qrcodeImage ) ), 200)->header('Content-type','image/png')->content(),
+                'qr_code' => response( base64_encode( $qrcodeImage ) , 200)->header('Content-type','image/png')->content(),
                 'status' => Response::HTTP_OK
             ], Response::HTTP_OK);
         }
