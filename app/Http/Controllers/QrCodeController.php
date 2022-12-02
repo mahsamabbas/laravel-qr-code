@@ -6,6 +6,7 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Http\Request;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Illuminate\Support\Facades\Auth;
+use Symfony\Component\HttpFoundation\Response;
 
 class QrCodeController extends Controller
 {
@@ -30,7 +31,10 @@ class QrCodeController extends Controller
                 ->errorCorrection('H')
                 ->generate($request->route()->parameter('content'));
 
-            return response($image)->header('Content-type','image/png');
+            return response([
+                'qr-code' => response(json_encode( utf8_encode( $image ) ), 200)->header('Content-type','image/png')->content(),
+                'status' => Response::HTTP_OK
+            ], Response::HTTP_OK);
         }
     }
 }

@@ -94,27 +94,27 @@ class AuthController extends Controller
         return response()->json($request->user());
     }
 
-    /**
-     * Get the authenticated User
-     *
-     * @param Request $request
-     * @return JsonResponse [json] user object
-     */
-    public function client(Request $request)
-    {
-        $client = DB::table('oauth_clients')->first();
-        if ($client) {
-            return response()->json([
-                'client-secret' => $client->secret,
-                'status' => Response::HTTP_OK
-            ], Response::HTTP_OK);
-        } else {
-            return response()->json([
-                'message' =>  'No client registered yet',
-                'status' => Response::HTTP_BAD_REQUEST
-            ], Response::HTTP_OK);
-        }
-    }
+    // /**
+    //  * Get the authenticated User
+    //  *
+    //  * @param Request $request
+    //  * @return JsonResponse [json] user object
+    //  */
+    // public function client(Request $request)
+    // {
+    //     $client = DB::table('oauth_clients')->first();
+    //     if ($client) {
+    //         return response()->json([
+    //             'client-secret' => $client->secret,
+    //             'status' => Response::HTTP_OK
+    //         ], Response::HTTP_OK);
+    //     } else {
+    //         return response()->json([
+    //             'message' =>  'No client registered yet',
+    //             'status' => Response::HTTP_BAD_REQUEST
+    //         ], Response::HTTP_OK);
+    //     }
+    // }
 }
 
 
