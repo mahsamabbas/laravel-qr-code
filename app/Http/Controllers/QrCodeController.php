@@ -26,5 +26,6 @@ class QrCodeController extends Controller
                 'status' => Response::HTTP_OK
             ], Response::HTTP_OK);
         }
+
     }
 }
