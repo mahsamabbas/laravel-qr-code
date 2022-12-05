@@ -106,7 +106,7 @@ export default {
           if (response.data.status == 200) {
             console.log(response.data.token);
             localStorage.setItem("qrCodeToken", response.data.access_token);
-            this.$router.push("/user");
+            this.$router.push("/qr");
           } else if (response.data.status == 401) {
             this.error = response.data.error.password[0];
           } else {

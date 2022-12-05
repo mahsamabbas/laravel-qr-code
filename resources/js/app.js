@@ -32,7 +32,7 @@ Vue.mixin({
             }
             const AuthStr = "Bearer " + authToken;
             axios
-              .get("api/user", { headers: { Authorization: AuthStr } })
+              .get("api/qr", { headers: { Authorization: AuthStr } })
               .then((response) => {
                 console.log(response.data.id);
                 if(response.data.id > 0){
