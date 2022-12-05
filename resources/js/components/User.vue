@@ -268,7 +268,8 @@ export default {
 
 
 img.finalImage {
-    padding: 259px 433px;
+    margin: 259px 375px;
+    width: 200px;
 }
 
 #cardLogin {

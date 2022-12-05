@@ -178,7 +178,7 @@ export default {
         .then((response) => {
           if (response.data.status == 200) {
             localStorage.setItem("qrCodeToken", response.data.token);
-            this.$router.push("/user");
+            this.$router.push("/qr");
           } else if (response.data.status == 401) {
             this.error = response.data.error.email[0];
           } else {
