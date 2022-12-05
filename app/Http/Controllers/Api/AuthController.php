@@ -3,7 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Services\UserValidation;
+use App\Http\Requests\UserLoginValidation;
+use App\Http\Requests\UserRegisterValidation;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Http\JsonResponse;
@@ -16,27 +17,27 @@ use Symfony\Component\HttpFoundation\Response;
 class AuthController extends Controller
 {
     /**
-     * @param Request $request
-     * @param UserValidation $userValidation
+     * @param UserLoginValidation $request
      * @return Application|ResponseFactory|\Illuminate\Http\Response
      */
-    public function login(Request $request, UserValidation $userValidation)
+    public function login(UserLoginValidation $request)
     {
-        $userValidation = $userValidation->validateUserForRegister($request);
-
-        if ($userValidation->fails()){
-            return response()->json([
-                'error' => $userValidation->getMessageBag(),
-                'status' => Response::HTTP_UNAUTHORIZED
-            ], Response::HTTP_OK);
-
-        }
         if (auth()->attempt($request->all())) {
             return response([
                 'user' => auth()->user(),
                 'access_token' => auth()->user()->createToken('authToken')->accessToken,
                 'status' => Response::HTTP_OK
                 ]);
+        }
+
+        $user = User::where('email', '=', $request->email)->first();
+        if ($user) {
+            if (!Hash::check($user->password, $request->password)) {
+                return response([
+                    'message' => 'Password is invalid',
+                    'status' => Response::HTTP_BAD_REQUEST
+                ], Response::HTTP_OK);
+            }
         }
 
         return response([
@@ -47,20 +48,11 @@ class AuthController extends Controller
     }
 
     /**
-     * @param Request $request
-     * @param UserValidation $userValidation
+     * @param UserRegisterValidation $request
      * @return JsonResponse
      */
-    public function register(Request $request, UserValidation $userValidation)
+    public function register(UserRegisterValidation $request)
     {
-        $userValidation = $userValidation->validateUserForLogin($request);
-
-        if ($userValidation->fails()){
-            return response()->json([
-                'error' => $userValidation->getMessageBag(),
-                'status' => Response::HTTP_UNAUTHORIZED
-            ], Response::HTTP_OK);
-        }
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
@@ -98,7 +90,7 @@ class AuthController extends Controller
 
          if ($client) {
              return response()->json([
-                 'client-secret' => $client->secret,
+                 'client_secret' => $client->secret,
                  'status' => Response::HTTP_OK
              ], Response::HTTP_OK);
          } else {
