@@ -2,7 +2,7 @@
 
 
 import Vue from "vue";
-import {BootstrapVue} from 'bootstrap-vue';
+import { BootstrapVue } from 'bootstrap-vue';
 import VueRouter from 'vue-router';
 import routes from './routes';
 import Vuelidate from "vuelidate";
@@ -23,25 +23,25 @@ const router = new VueRouter(routes);
 
 
 Vue.mixin({
-    methods:{
-        userVerification(){
+    methods: {
+        userVerification() {
             let authToken = localStorage.getItem("qrCodeToken");
 
-            if(authToken == null){
+            if (authToken == null) {
                 return;
             }
             const AuthStr = "Bearer " + authToken;
             axios
-              .get("api/qr", { headers: { Authorization: AuthStr } })
-              .then((response) => {
-                console.log(response.data.id);
-                if(response.data.id > 0){
-                    this.$router.push("/user");
-                }
-              })
-              .catch((error) => {
-                console.log(error);
-              });
+                .get("api/user", { headers: { Authorization: AuthStr } })
+                .then((response) => {
+                    console.log(response.data.id);
+                    if (response.data.id > 0) {
+                        this.$router.push("/qr");
+                    }
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
         },
     }
 })
@@ -50,7 +50,7 @@ Vue.mixin({
 const app = new Vue({
     el: '#app',
     router: router,
-    components:{
+    components: {
         BaseComponent
     }
 });
