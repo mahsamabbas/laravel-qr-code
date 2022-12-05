@@ -8,7 +8,7 @@
           <div class="card-body">
             Welcome to Homepage
             <br />
-            <router-link to="/user">Go to User</router-link>
+            <router-link to="/qr">Go to User</router-link>
           </div>
         </div>
       </div>

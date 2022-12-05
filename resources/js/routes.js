@@ -11,26 +11,26 @@ export default {
             path: '/',
             name: 'login',
             component: LoginComponent,
-            meta: {needAuth: false}
+            meta: { needAuth: false }
 
         },
         {
             path: '/login',
             name: 'login',
             component: LoginComponent,
-            meta: {needAuth: false},
+            meta: { needAuth: false },
         },
         {
             path: '/register',
             name: 'register',
             component: RegisterComponent,
-            meta: {needAuth: false},
+            meta: { needAuth: false },
         },
         {
-            path: '/user',
+            path: '/qr',
             name: 'user',
             component: User,
-            meta: {needAuth: true},
+            meta: { needAuth: true },
         }
     ]
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\QrCodeValidation;
 use App\Http\Services\QrCodeService;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Routing\ResponseFactory;
@@ -12,16 +13,15 @@ use Symfony\Component\HttpFoundation\Response;
 class QrCodeController extends Controller
 {
     /**
-     * @param Request $request
+     * @param QrCodeValidation $request
      * @param QrCodeService $qrCodeService
      * @return Application|ResponseFactory|\Illuminate\Http\Response|void
      */
-    public function qrCode(Request $request, QrCodeService $qrCodeService)
+    public function getQrCode(QrCodeValidation $request, QrCodeService $qrCodeService)
     {
         if ((Auth::user()) !== null) {
-            $qrcodeImage = $qrCodeService->getQrcode($request);
+            $qrcodeImage = $qrCodeService->get($request);
 
-            //dd(response(json_encode( base64_encode( $qrcodeImage ) ), 200)->header('Content-type','image/png')->content());
             return response([
                 'qr_code' => response( base64_encode( $qrcodeImage ) , 200)->header('Content-type','image/png')->content(),
                 'status' => Response::HTTP_OK

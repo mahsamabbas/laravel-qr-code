@@ -5,7 +5,11 @@
         <h1 class="text-center mb-3">Register User</h1>
 
         <b-row class="lineHeight">
-          <div :class="{ 'form-group--error': $v.name.$error }">
+
+          <b-col md="4"></b-col>
+          <b-col md="4">
+          
+          <div  class="lineHeight" :class="{ 'form-group--error': $v.name.$error }">
             <b-form-group id="input-group-1" label-for="name">
               <b-form-input
                 id="name"
@@ -26,10 +30,8 @@
             </span>
             <span class="error" v-if="!$v.name.alpha"> Alphabets only </span>
           </div>
-        </b-row>
 
-        <b-row class="lineHeight">
-          <div :class="{ 'form-group--error': $v.email.$error }">
+          <div  class="lineHeight" :class="{ 'form-group--error': $v.email.$error }">
             <b-form-group id="input-group-1" label-for="email">
               <b-form-input
                 id="email"
@@ -50,10 +52,8 @@
             </span>
             <span class="error" v-if="!$v.email.email"> must be an email </span>
           </div>
-        </b-row>
 
-        <b-row class="lineHeight">
-          <div :class="{ 'form-group--error': $v.password.$error }">
+          <div class="lineHeight" :class="{ 'form-group--error': $v.password.$error }">
             <b-form-group id="input-group-2" label-for="input-2">
               <b-form-input
                 id="passord"
@@ -77,10 +77,8 @@
               special character
             </span>
           </div>
-        </b-row>
 
-        <b-row class="lineHeight">
-          <div :class="{ 'form-group--error': $v.confirmpassword.$error }">
+          <div :class="{ 'form-group--error': $v.confirmpassword.$error }" class="lineHeight">
             <b-form-group id="input-group-2" label-for="input-2">
               <b-form-input
                 id="confirmpassword"
@@ -109,7 +107,11 @@
           <div v-if="confirmerror">
             <span class="error"> {{ confirmerror }} </span>
           </div>
-        </b-row>
+
+          </b-col>
+          <b-col md="4"></b-col>
+
+          </b-row>
 
         <div class="d-flex justify-content-center mt-3">
           <span class="error" v-if="error">
@@ -118,7 +120,7 @@
         </div>
 
         <div class="d-flex justify-content-center mt-3">
-          <b-button type="submit" variant="outline-primary">Register</b-button>
+          <b-button type="submit" variant="outline-primary" class="buttonSizeAll">Register</b-button>
         </div>
 
         <div class="d-flex justify-content-center flex-wrap mt-4 register">
@@ -178,7 +180,7 @@ export default {
         .then((response) => {
           if (response.data.status == 200) {
             localStorage.setItem("qrCodeToken", response.data.token);
-            this.$router.push("/user");
+            this.$router.push("/qr");
           } else if (response.data.status == 401) {
             this.error = response.data.error.email[0];
           } else {

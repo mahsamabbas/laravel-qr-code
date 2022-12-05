@@ -20,6 +20,11 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
+    <style>
+        .buttonSizeAll {
+            width: 200px;
+        }    
+    </style>    
     {{-- <div id="app">
         <login-component/>
     </div> --}}
