@@ -29,7 +29,6 @@ Route::group([
     'middleware' => 'auth:api'
 ], function() {
     Route::get('user', [AuthController::class, 'user']);
-    Route::get('qr-code/{backgroundcolor}/{size}/{content}/{fillcolor}',
-        [QrCodeController::class, 'qrCode']);
+    Route::get('qr-code',
+        [QrCodeController::class, 'getQrCode'])->name('qr-code');
 });
-

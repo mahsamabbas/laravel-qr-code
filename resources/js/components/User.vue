@@ -270,6 +270,7 @@ export default {
 .row .imageHeader {
     background: #6565d9;
     padding: 10px 0px 10px 10px;
+    border-radius: 15px;
 }
 
 
