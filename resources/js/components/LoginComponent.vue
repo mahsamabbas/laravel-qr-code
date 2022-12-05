@@ -1,12 +1,17 @@
 <template>
   <div>
+
     <b-card id="cardLogin" class="scale-in-bl">
       <b-form @submit.prevent="onSubmit" id="formLogin">
         <h1 class="text-center mb-3">Login</h1>
         <!-- <b-img src="../assets/images/logo.png" fluid class="logoLogin mb-4" /> -->
         <b-row class="lineHeight">
+
+          <b-col md="4"></b-col>
+          <b-col md="4">
+
           <div :class="{ 'form-group--error': $v.email.$error }">
-            <b-form-group id="input-group-1" label-for="email">
+            <b-form-group id="input-group-1" label-for="email" class="lineHeight">
               <b-form-input
                 id="email"
                 class="input"
@@ -26,10 +31,8 @@
             </span>
             <span class="error" v-if="!$v.email.email"> must be an email </span>
           </div>
-        </b-row>
-
-        <b-row class="lineHeight">
-          <div :class="{ 'form-group--error': $v.password.$error }">
+        
+          <div :class="{ 'form-group--error': $v.password.$error }" class="lineHeight">
             <b-form-group id="input-group-2" label-for="input-2">
               <b-form-input
                 id="passord"
@@ -49,6 +52,10 @@
               Max length must be less than 20
             </span>
           </div>
+
+        </b-col>
+          <b-col md="4"></b-col>
+         
         </b-row>
 
         <div class="d-flex justify-content-center mt-3">
@@ -57,7 +64,7 @@
           </span>
         </div>
         <div class="d-flex justify-content-center mt-3">
-          <b-button type="submit" variant="outline-primary">Login</b-button>
+          <b-button type="submit" class="buttonSizeAll" variant="outline-primary">Login</b-button>
         </div>
 
         <div class="d-flex justify-content-center flex-wrap mt-4 register">
@@ -106,6 +113,7 @@ export default {
           if (response.data.status == 200) {
             console.log(response.data.token);
             localStorage.setItem("qrCodeToken", response.data.access_token);
+            localStorage.setItem("username", this.email);
             this.$router.push("/qr");
           } else if (response.data.status == 401) {
             this.error = response.data.error.password[0];

@@ -1,6 +1,10 @@
 <template>
+    
     <div>
+        <navbar-component/>
+
         <b-row>
+
             <b-col md="6">
                 <b-card id="cardLogin" class="scale-in-bl">
                     <b-form @submit.prevent="onSubmit" id="formLogin">
@@ -19,7 +23,7 @@
                                         class="input"
                                         v-model="size"
                                         type="text"
-                                        placeholder="500"
+                                        placeholder="Please add size"
                                     ></b-form-input>
                                 </b-form-group>
                             </div>
@@ -54,7 +58,7 @@
                                         class="input"
                                         v-model="content"
                                         type="text"
-                                        placeholder="Mvix USA"
+                                        placeholder="Please add content"
                                     ></b-form-input>
                                 </b-form-group>
                             </div>
@@ -114,7 +118,7 @@
 
                         <div class="d-flex justify-content-center mt-6">
                             
-                            <b-button type="submit" variant="outline-primary"
+                            <b-button class="buttonSizeAll" type="submit" variant="outline-primary"
                                 >Get Qr</b-button
                             >
                         </div>
@@ -140,6 +144,7 @@
 
 <script>
 import colorPicker from "@caohenghu/vue-colorpicker";
+import NavbarComponent from "./NavbarComponent.vue";
 
 import {
     required,
@@ -152,6 +157,7 @@ export default {
     name: "User",
     components: {
         colorPicker,
+        NavbarComponent
     },
     data() {
         return {
@@ -163,8 +169,8 @@ export default {
             suckerCanvasFill: null,
             suckerAreaFill: [],
             isSuckingFill: false,
-            content: "Mvix USA",
-            size: 500,
+            content: "",
+            size: null,
             response: null,
         };
     },
