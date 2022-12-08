@@ -24,10 +24,10 @@ class QrCodeValidation extends FormRequest
     public function rules()
     {
         return [
-            'backgroundcolor' => ['required', 'regex:/[0-255]{1,3},[0-255]{1,3},[0-255]{1,3},[0-1]{1,3}/'],
-            'fillcolor' => ['required', 'regex:/[0-255]{1,3},[0-255]{1,3},[0-255]{1,3},[0-1]{1,3}/'],
-            'size' => ['required', 'regex:/^\\d+$/'],
-            'content' => ['required', 'regex:/[a-z]/'],
+            'backgroundcolor' => ['required', 'regex:/(\d{1,3}),(\d{1,3}),(\d{1,3}),(\d{1,1})/'],
+            'fillcolor' => ['required', 'regex:/(\d{1,3}),(\d{1,3}),(\d{1,3}),(\d{1,1})/'],
+            'size' => ['required', 'regex:/^\d+$/'],
+            'content' => ['required', 'regex:/^[A-Za-z ]+$/'],
         ];
     }
 }
