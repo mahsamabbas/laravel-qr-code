@@ -30,11 +30,14 @@ class AuthController extends Controller
                 ]);
         }
 
-        if (auth()->user() == null) {
-            return response([
-                'message' => 'Password is incorrect',
-                'status' => Response::HTTP_BAD_REQUEST
-            ], Response::HTTP_OK);
+        $user = User::where('email', '=', $request->email)->first();
+        if ($user) {
+            if (!Hash::check($user->password, $request->password)) {
+                return response([
+                    'message' => 'Password is invalid',
+                    'status' => Response::HTTP_BAD_REQUEST
+                ], Response::HTTP_OK);
+            }
         }
 
         return response([
