@@ -258,14 +258,15 @@ export default {
 
 <style lang="scss" scoped>
 .card {
-    --bs-card-height: 100% !important;
+    --bs-card-height: 120% !important;
 }
 .lineHeight {
     padding: 20px;
 }
 
 .titleQr {
-    padding-top: 20px;
+    padding-top: 30px;
+    font-weight: 700;
 }
 
 .row {
@@ -279,10 +280,7 @@ img.finalImage {
 #cardLogin {
     border-radius: 15px;
     max-width: 100%;
-    h1 {
-        font-weight: 700;
-    }
-    // margin: 5em auto;
+
     #formLogin {
         display: flex;
         flex-direction: column;
