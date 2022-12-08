@@ -13,7 +13,7 @@ class QrCodeService
     public function get($request)
     {
         return QrCode::format('png')
-            ->size($request->size)
+            ->size((int)$request->size)
             ->backgroundColor((int)explode(',', $request->backgroundcolor)[0],
                 (int)explode(',', $request->backgroundcolor)[1],
                 (int)explode(',', $request->backgroundcolor)[2],
