@@ -24,6 +24,18 @@ const router = new VueRouter(routes);
 
 Vue.mixin({
     methods: {
+
+        async apiClient(){
+            let clientKey = '';
+            await axios.get("api/auth/clients").then((response) => {
+                    clientKey = response.data.client_secret;                   
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+
+                return "Bearer " + clientKey;
+        },
         userVerification() {
             let authToken = localStorage.getItem("qrCodeToken");
 

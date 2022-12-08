@@ -30,6 +30,16 @@ class AuthController extends Controller
                 ]);
         }
 
+        $user = User::where('email', '=', $request->email)->first();
+        if ($user) {
+            if (!Hash::check($user->password, $request->password)) {
+                return response([
+                    'message' => 'Password is invalid',
+                    'status' => Response::HTTP_BAD_REQUEST
+                ], Response::HTTP_OK);
+            }
+        }
+
         return response([
             'message' => 'This User does not exist',
             'status' => Response::HTTP_BAD_REQUEST

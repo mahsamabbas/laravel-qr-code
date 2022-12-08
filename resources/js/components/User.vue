@@ -98,6 +98,7 @@
 
                             <b-col md="6">
                                 <b-form-group
+                                    style="float: right !important"
                                     id="input-group-1"
                                     label-for="colorFill"
                                 >
@@ -327,6 +328,10 @@ img.finalImage {
 
     .error {
         color: red;
+    }
+
+    .hu-color-picker {
+        width: 250px !important;
     }
 }
 </style>
