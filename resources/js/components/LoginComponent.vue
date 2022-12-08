@@ -1,3 +1,5 @@
+// LoginComponent
+
 <template>
     <div>
         <b-card id="cardLogin" class="scale-in-bl">
@@ -5,8 +7,7 @@
                 <h1 class="text-center mb-3">Login</h1>
                 <!-- <b-img src="../assets/images/logo.png" fluid class="logoLogin mb-4" /> -->
                 <b-row class="lineHeight">
-                    <b-col md="4"></b-col>
-                    <b-col md="4">
+                    <b-col md="12">
                         <div :class="{ 'form-group--error': $v.email.$error }">
                             <b-form-group
                                 id="input-group-1"
@@ -66,7 +67,6 @@
                             </span>
                         </div>
                     </b-col>
-                    <b-col md="4"></b-col>
                 </b-row>
 
                 <div class="d-flex justify-content-center mt-3">
@@ -169,13 +169,16 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .lineHeight {
     padding: 20px;
 }
-
+// max-width: 600px;
+//     margin: 5em auto;
 #cardLogin {
     border-radius: 15px;
+    max-width: 600px;
+    margin: 5em auto;
     //   box-shadow: 0px 0px 10px $gray;
 
     #formLogin {

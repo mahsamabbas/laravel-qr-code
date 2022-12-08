@@ -1,3 +1,5 @@
+// RegisterComponent
+
 <template>
     <div>
         <b-card id="cardLogin" class="scale-in-bl">
@@ -5,8 +7,7 @@
                 <h1 class="text-center mb-3">Register User</h1>
 
                 <b-row class="lineHeight">
-                    <b-col md="4"></b-col>
-                    <b-col md="4">
+                    <b-col md="12">
                         <div
                             class="lineHeight"
                             :class="{ 'form-group--error': $v.name.$error }"
@@ -151,7 +152,6 @@
                             <span class="error"> {{ confirmerror }} </span>
                         </div>
                     </b-col>
-                    <b-col md="4"></b-col>
                 </b-row>
 
                 <div class="d-flex justify-content-center mt-3">
@@ -212,7 +212,7 @@ export default {
     methods: {
         async onSubmit() {
             this.$v.$touch();
-            if (this.$v.$invalid) {
+            if (this.$v.$invalid || !this.validatePassword) {
                 console.log("Form validation error");
                 return false;
             }
@@ -242,9 +242,24 @@ export default {
                     }
                 })
                 .catch((error) => {
+                    const emailError =
+                        typeof error.response.data.errors.email != "undefined"
+                            ? error.response.data.errors.email[0]
+                            : "";
+                    const passwordError =
+                        typeof error.response.data.errors.password !=
+                        "undefined"
+                            ? error.response.data.errors.password[0]
+                            : "";
+                    const confirmPasswordError =
+                        typeof error.response.data.errors.password_confirm !=
+                        "undefined"
+                            ? error.response.data.errors.password_confirm[0]
+                            : "";
+
+                    // error.response.data.message +
                     this.error =
-                        error.response.data.message +
-                        error.response.data.errors.email[0];
+                        emailError + passwordError + confirmPasswordError;
                 });
         },
     },
@@ -260,7 +275,9 @@ export default {
             }
         },
     },
-
+    mounted() {
+        this.userVerification();
+    },
     validations() {
         return {
             name: {
@@ -292,14 +309,15 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .lineHeight {
     padding: 20px;
 }
 
 #cardLogin {
     border-radius: 15px;
-    //   box-shadow: 0px 0px 10px $gray;
+    max-width: 600px;
+    margin: 5em auto;
 
     #formLogin {
         display: flex;
