@@ -1,5 +1,3 @@
-// RegisterComponent
-
 <template>
     <div>
         <b-card id="cardLogin" class="scale-in-bl">

@@ -271,12 +271,6 @@ export default {
 .row {
     width: 100% !important;
 }
-.row .imageHeader {
-    background: #6565d9;
-    padding: 10px 0px 10px 10px;
-    border-radius: 15px;
-}
-
 img.finalImage {
     max-width: 50%;
     margin: 7em auto;
@@ -308,11 +302,6 @@ img.finalImage {
         .input {
             border-radius: 10px;
         }
-    }
-
-    .row.imageHeader {
-        background-color: #45cbcb;
-        padding: 10px 0px 10px 15px;
     }
 
     .form-group--error {
