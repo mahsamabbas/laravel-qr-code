@@ -1,10 +1,8 @@
 <template>
-    
     <div>
-        <navbar-component/>
+        <navbar-component />
 
         <b-row>
-
             <b-col md="6">
                 <b-card id="cardLogin" class="scale-in-bl">
                     <b-form @submit.prevent="onSubmit" id="formLogin">
@@ -99,7 +97,6 @@
                             </b-col>
 
                             <b-col md="6">
-                               
                                 <b-form-group
                                     id="input-group-1"
                                     label-for="colorFill"
@@ -117,8 +114,10 @@
                         </b-row>
 
                         <div class="d-flex justify-content-center mt-6">
-                            
-                            <b-button class="buttonSizeAll" type="submit" variant="outline-primary"
+                            <b-button
+                                class="buttonSizeAll"
+                                type="submit"
+                                variant="outline-primary"
                                 >Get Qr</b-button
                             >
                         </div>
@@ -127,13 +126,13 @@
             </b-col>
             <b-col md="6">
                 <!-- <b-card id="cardLogin" class="scale-in-bl"> -->
-                    <!-- <b-form id="formLogin"> -->
+                <!-- <b-form id="formLogin"> -->
                 <b-row class="imageHeader">
-                                    <b-col md=12>
-                                        Preview
-                                    </b-col>
-                                </b-row>
-                 <img :src="response" class="finalImage">
+                    <b-col md="12"> Preview </b-col>
+                </b-row>
+                <b-row>
+                    <img :src="response" class="finalImage" />
+                </b-row>
                 <!-- </b-form> -->
 
                 <!-- </b-card> -->
@@ -157,7 +156,7 @@ export default {
     name: "User",
     components: {
         colorPicker,
-        NavbarComponent
+        NavbarComponent,
     },
     data() {
         return {
@@ -208,13 +207,14 @@ export default {
             this.content;
             this.size;
             let urlEndPoint =
+                "backgroundcolor=" +
                 this.color +
-                "/" +
-                this.content +
-                "/" +
+                "&fillcolor=" +
+                this.colorFill +
+                "&size=" +
                 this.size +
-                "/" +
-                this.colorFill;
+                "&content=" +
+                this.content;
 
             let authToken = localStorage.getItem("qrCodeToken");
 
@@ -223,12 +223,12 @@ export default {
             }
             const AuthStr = "Bearer " + authToken;
             axios
-                .get("api/qr-code/" + urlEndPoint, {
+                .get("api/qr-code?" + urlEndPoint, {
                     headers: { Authorization: AuthStr },
                 })
                 .then((response) => {
-                    console.log(response);
-                    this.response = 'data:image/png;base64,'+response.data.qr_code;
+                    this.response =
+                        "data:image/png;base64," + response.data.qr_code;
                 })
                 .catch((error) => {
                     console.log(error);
@@ -273,10 +273,11 @@ export default {
     border-radius: 15px;
 }
 
-
 img.finalImage {
-    margin: 259px 375px;
-    width: 200px;
+    margin: 18% 25%;
+    text-align: center !important;
+    vertical-align: middle !important;
+    width: 600px;
 }
 
 #cardLogin {
@@ -304,11 +305,10 @@ img.finalImage {
         }
     }
 
-
     .row.imageHeader {
-    background-color: #45cbcb;
-    padding: 10px 0px 10px 15px;
-}
+        background-color: #45cbcb;
+        padding: 10px 0px 10px 15px;
+    }
 
     .form-group--error {
         color: red;
@@ -328,10 +328,5 @@ img.finalImage {
     .error {
         color: red;
     }
-    img.finalImage {
-    margin: 274px 443px;
-}
-
-
 }
 </style>
