@@ -98,6 +98,7 @@
 
                             <b-col md="6">
                                 <b-form-group
+                                    style="float: right !important"
                                     id="input-group-1"
                                     label-for="colorFill"
                                 >
@@ -125,17 +126,10 @@
                 </b-card>
             </b-col>
             <b-col md="6">
-                <!-- <b-card id="cardLogin" class="scale-in-bl"> -->
-                <!-- <b-form id="formLogin"> -->
-                <b-row class="imageHeader">
-                    <b-col md="12"> Preview </b-col>
-                </b-row>
+                <h1 class="text-center mb-3 titleQr">Preview</h1>
                 <b-row>
                     <img :src="response" class="finalImage" />
                 </b-row>
-                <!-- </b-form> -->
-
-                <!-- </b-card> -->
             </b-col>
         </b-row>
     </div>
@@ -262,27 +256,30 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
+.card {
+    --bs-card-height: 120% !important;
+}
 .lineHeight {
     padding: 20px;
 }
 
-.row .imageHeader {
-    background: #6565d9;
-    padding: 10px 0px 10px 10px;
-    border-radius: 15px;
+.titleQr {
+    padding-top: 30px;
+    font-weight: 700;
 }
 
+.row {
+    width: 100% !important;
+}
 img.finalImage {
-    margin: 18% 25%;
-    text-align: center !important;
-    vertical-align: middle !important;
-    width: 600px;
+    max-width: 50%;
+    margin: 7em auto;
 }
 
 #cardLogin {
     border-radius: 15px;
-    //   box-shadow: 0px 0px 10px $gray;
+    max-width: 100%;
 
     #formLogin {
         display: flex;
@@ -305,11 +302,6 @@ img.finalImage {
         }
     }
 
-    .row.imageHeader {
-        background-color: #45cbcb;
-        padding: 10px 0px 10px 15px;
-    }
-
     .form-group--error {
         color: red;
     }
@@ -327,6 +319,10 @@ img.finalImage {
 
     .error {
         color: red;
+    }
+
+    .hu-color-picker {
+        width: 250px !important;
     }
 }
 </style>
