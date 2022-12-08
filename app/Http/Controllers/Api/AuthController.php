@@ -80,7 +80,7 @@ class AuthController extends Controller
 
          if ($client) {
              return response()->json([
-                 'client-secret' => $client->secret,
+                 'client_secret' => $client->secret,
                  'status' => Response::HTTP_OK
              ], Response::HTTP_OK);
          } else {
