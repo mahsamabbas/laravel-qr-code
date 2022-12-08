@@ -25,7 +25,7 @@ class UserLoginValidation extends FormRequest
     {
         return [
             'email' => 'required|email',
-            'password' => ['required', 'string', 'min:8', 'regex:/[a-z]/', 'regex:/[A-Z]/', 'regex:/[0-9]/', 'regex:/[@$!%*#?&]/']
+            'password' => ['required', 'string', 'min:8']
         ];
     }
 }

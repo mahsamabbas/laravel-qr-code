@@ -30,6 +30,13 @@ class AuthController extends Controller
                 ]);
         }
 
+        if (auth()->user() == null) {
+            return response([
+                'message' => 'Password is incorrect',
+                'status' => Response::HTTP_BAD_REQUEST
+            ], Response::HTTP_OK);
+        }
+
         return response([
             'message' => 'This User does not exist',
             'status' => Response::HTTP_BAD_REQUEST
