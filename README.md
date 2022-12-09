@@ -20,3 +20,22 @@ QR code preview page and all pages UI must be to build using VueJS, if possible 
 
 Candidates are expected to build API endpoints using laravel (ver 9) repository design pattern and mysql as DB server.
 Please write unit test cases for all developed endpoints. This is a TEST Task. DO NOT seek outside guidance/help to complete this task.
+
+**Installation**
+**Front-end installation:**
+**Prerequisite:**
+- Node js (version 16.0 or higher) install
+- npm install
+- npm run prod
+
+
+**Back-end installation:**
+**Prerequisite:**
+- Install PHP (check php -v)
+- Install Laravel 8
+**Steps are:**
+- Go to cd **/var/www/html**
+- composer install
+- php artisan passport:client
+This command will create clients for the vue js application to access backend application (laravel) apis: register/login only.
+Once user got registered it take access token and by using this access token user can hit other apis like qr-code.
