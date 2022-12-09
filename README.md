@@ -21,4 +21,3 @@ QR code preview page and all pages UI must be to build using VueJS, if possible 
 
 Candidates are expected to build API endpoints using laravel (ver 9) repository design pattern and mysql as DB server.
 Please write unit test cases for all developed endpoints. This is a TEST Task. DO NOT seek outside guidance/help to complete this task.
-Submit your code via Github only.
